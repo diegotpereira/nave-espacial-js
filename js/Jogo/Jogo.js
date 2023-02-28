@@ -7,15 +7,17 @@ const JOGANDO = 'rodando';
 
 export default class Jogo {
 
-    constructor() {
+    constructor({ jogador }) {
 
         this.state = INICIANDO;
 
         this.ui = new JogoUI(this);
 
+        this.iniciarJogador(jogador);
         this.addEventos();
         this.animate();
         this.ui.exibirMenu();
+
     }
 
     get iniciando() {
@@ -37,6 +39,14 @@ export default class Jogo {
     get jogando() {
 
         return this.state === JOGANDO;
+    }
+
+    iniciarJogador(jogador) {
+
+        this.jogador = jogador;
+        this.jogador.init({
+            jogo: this
+        })
     }
 
     addEventos() {
@@ -102,7 +112,7 @@ export default class Jogo {
 
         if (iniciando) {
             
-            // start(iniciando);
+            this.jogador.start(iniciando);
             
         }
 
@@ -111,7 +121,7 @@ export default class Jogo {
 
     play(iniciando) {
 
-        this.state = JOGANDO
+        this.state = JOGANDO;
         this.animate();
         this.ui.ocultarModais();
     }
@@ -126,6 +136,7 @@ export default class Jogo {
     draw() {
 
         this.ui.draw();
+        this.jogador.draw();
     }
 
     animate = () => {
@@ -135,7 +146,7 @@ export default class Jogo {
             0,
             0,
             this.ui.DOM.canvas.width,
-            this.ui.DOM.canvas.height
+            this.ui.DOM.canvas.height,
         )
 
         if (this.state !== JOGANDO) {

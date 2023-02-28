@@ -23,15 +23,15 @@ export class JogoUI {
 
     addEventos() {
 
-        const redimensionar = () => {
+        const resize = () => {
 
             this.DOM.canvas.width = window.innerWidth;
             this.DOM.canvas.height = window.innerHeight;
         }
 
-        window.addEventListener('resize', redimensionar);
+        window.addEventListener('resize', resize);
 
-        redimensionar();
+        resize();
     }
 
     criarEstrelas() {
@@ -58,16 +58,16 @@ export class JogoUI {
         elemento.classList.add('hidden');
         this.DOM.menu = elemento;
 
-        const content = addDomNode(elemento, { className: 'content'});
+        const conteudo = addDomNode(elemento, { className: 'conteudo'});
 
-        addDomNode(content, {
+        addDomNode(conteudo, {
 
             className: 'titulo',
             tag: 'h1',
             text: 'Nave Espacial JS'
         });
 
-        addDomNode(content, {
+        addDomNode(conteudo, {
 
             className: 'subtitulo',
             tag: 'h2',
