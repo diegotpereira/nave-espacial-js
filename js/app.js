@@ -6,5 +6,3 @@ window.root = root;
 
 
 const jogo = new Jogo();
-
-console.log(jogo);
