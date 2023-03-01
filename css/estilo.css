@@ -313,7 +313,7 @@ body {
 
 .contador-balas .subtitulo {
 
-    font-size: 0.2s;
+    font-size: 18px;
 }
 
 .indicador-trovao {
@@ -422,7 +422,7 @@ body {
 }
 
 .modal 
-.conteudo {
+.content {
     border-radius: 20px;
     border: 3px solid #fff;
     box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
@@ -432,7 +432,7 @@ body {
     backdrop-filter: blur(12px);
 }
 
-.modal.fim-jogo .conteudo {
+.modal.fim-jogo .content {
 
     border: 3px solid #09c447;
 }

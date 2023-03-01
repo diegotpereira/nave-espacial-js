@@ -150,16 +150,16 @@ export class JogoUI {
         elemento.classList.add('hidden');
         this.DOM.menu = elemento;
 
-        const conteudo = addDomNode(elemento, { className: 'conteudo'});
+        const content = addDomNode(elemento, { className: 'content'});
 
-        addDomNode(conteudo, {
+        addDomNode(content, {
 
             className: 'titulo',
             tag: 'h1',
             text: 'Nave Espacial JS'
         });
 
-        addDomNode(conteudo, {
+        addDomNode(content, {
 
             className: 'subtitulo',
             tag: 'h2',
@@ -181,43 +181,43 @@ export class JogoUI {
         elemento.classList.add('hidden');
         this.DOM.fimJogo = elemento;
 
-        const conteudo = addDomNode(elemento, { className: 'conteudo'});
+        const content = addDomNode(elemento, { className: 'content'});
 
-        this.FIMJOGO_TITULO = addDomNode(conteudo, {
+        this.FIMJOGO_TITULO = addDomNode(content, {
 
             className: 'titulo',
             tag: 'h1',
             text: 'Fim de Jogo'
         });
 
-        addDomNode(conteudo, {
+        addDomNode(content, {
 
             className: 'subtitulo',
             tag: 'h2',
             text: 'Pressione ENTER para começar de novo'
         });
 
-        this.DOM.FIMJOGO_PONTUACAO = addDomNode(conteudo, {
+        this.DOM.FIMJOGO_PONTUACAO = addDomNode(content, {
 
             className: 'pontuacao',
             tag: 'p',
             text: 'Sua pontuação: 0'
         });
 
-        this.DOM.FIMJOGO_MELHOR = addDomNode(conteudo, {
+        this.DOM.FIMJOGO_MELHOR = addDomNode(content, {
 
             className: 'pontuação melhor',
             tag: 'p',
             text: 'Melhor Pontuação: 0'
         });
 
-        this.DOM.FIMJOGO_MELHOR_REINICIAR = addDomNode(addDomNode(conteudo, {
+        this.DOM.FIMJOGO_MELHOR_REINICIAR = addDomNode(addDomNode(content, {
 
             tag: 'div',
         }), {
 
             className: 'reiniciar',
-            tab: 'button',
+            tag: 'button',
             text: 'Comece de novo'
         })
 
@@ -227,5 +227,6 @@ export class JogoUI {
     ocultarModais() {
 
         this.DOM.menu.classList.add('hidden');
+        this.DOM.fimJogo.classList.add('hidden');
     }
 }

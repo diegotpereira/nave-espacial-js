@@ -3,12 +3,14 @@ export default class Jogador {
     constructor({ combatente }) {
 
         this.combatente = combatente;
+        this.reset();
 
 
     }
 
     start() {
 
+        this.atualizarDom();
         this.addEventos();
 
         setTimeout(() => {
@@ -22,6 +24,11 @@ export default class Jogador {
         this.combatente.init({ jogador: this, jogo });
 
         this.atualizarDom();
+    }
+
+    reset() {
+
+        this.nivel = 1;
     }
 
     addEventos() {
@@ -63,5 +70,7 @@ export default class Jogador {
     atualizarDom() {
 
         const ui = this.jogo.ui.DOM;
+
+        ui.nivel.innerText = this.nivel;
     }
 }

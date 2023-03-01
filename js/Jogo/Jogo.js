@@ -78,6 +78,7 @@ export default class Jogo {
                 }, tempo_limite_retorno);   
             }
         });
+        
 
         window.addEventListener('click', e => {
 
@@ -86,6 +87,11 @@ export default class Jogo {
                 this.start();
             }
         });
+
+        this.ui.DOM.FIMJOGO_MELHOR_REINICIAR.addEventListener('click', e => {
+
+            this.start();
+        })
 
         window.addEventListener('keydown', e => {
 

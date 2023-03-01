@@ -8,7 +8,6 @@ export default class Inimigo {
     constructor({ jogo, velocidade, inimigoServico }) {
 
         this.jogo = jogo;
-        this.velocidade = velocidade;
         this.inimigoServico = inimigoServico;
         this.active = true; 
 
