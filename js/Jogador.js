@@ -1,6 +1,8 @@
 export default class Jogador {
 
-    constructor() {
+    constructor({ combatente }) {
+
+        this.combatente = combatente;
 
 
     }
@@ -8,14 +10,30 @@ export default class Jogador {
     start() {
 
         this.addEventos();
+
+        setTimeout(() => {
+            this.atualizarDom();
+        }, 2050);
     }
 
     init({ jogo }) {
 
         this.jogo = jogo;
+        this.combatente.init({ jogador: this, jogo });
+
+        this.atualizarDom();
     }
 
     addEventos() {}
 
-    draw() {}
+    draw() {
+
+        this.combatente.draw();
+    }
+
+
+    atualizarDom() {
+
+        const ui = this.jogo.ui.DOM;
+    }
 }

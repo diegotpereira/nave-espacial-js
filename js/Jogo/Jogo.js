@@ -1,3 +1,4 @@
+import { JogoInimigoServico } from "./JogoInimigoServico.js";
 import {JogoUI}  from "./JogoUI.js";
 
 const INICIANDO = 'iniciando';
@@ -12,6 +13,11 @@ export default class Jogo {
         this.state = INICIANDO;
 
         this.ui = new JogoUI(this);
+        this.inimigo = new JogoInimigoServico({
+
+            jogo: this,
+            jogador
+        });
 
         this.iniciarJogador(jogador);
         this.addEventos();
@@ -122,6 +128,7 @@ export default class Jogo {
     play(iniciando) {
 
         this.state = JOGANDO;
+        this.inimigo.start(iniciando);
         this.animate();
         this.ui.ocultarModais();
     }
@@ -136,7 +143,9 @@ export default class Jogo {
     draw() {
 
         this.ui.draw();
+        this.inimigo.draw();
         this.jogador.draw();
+        
     }
 
     animate = () => {

@@ -14,7 +14,13 @@ export class JogoUI {
 
         this.estrelas = [];
 
+        this.criarIndicadoresInferioresDireita();
+
+        this.criarIndicadoresInferioresEsquerdo();
+
         this.criarMenu();
+
+        this.criarFimJogo();
 
         this.criarEstrelas();
 
@@ -51,6 +57,92 @@ export class JogoUI {
         this.estrelas.forEach(estrela => estrela.draw());
     }
 
+    criarIndicadoresInferioresDireita() {
+
+        const elemento = createDomNode('indicadores-botao-direito');
+
+        this.DOM.balasContar = addDomNode(elemento, {
+
+            className: 'contador-balas'
+        });
+
+        this.DOM.balasEsquerda = addDomNode(this.DOM.balasContar, {
+
+            className: 'icon'
+        });
+
+        this.DOM.balasCapacidade = addDomNode(this.DOM.balasContar, {
+
+            className: 'subtitulo'
+        });
+
+        this.DOM.trovao = addDomNode(elemento, { className: 'indicador-trovao'});
+        addDomNode(this.DOM.trovao, { className: 'icon', tag: 'span'});
+        addDomNode(this.DOM.trovao, {
+
+            className: 'subtitulo',
+            tag: 'kbd',
+            text: 'ENTRE'
+        });
+
+        root.appendChild(elemento);
+    }
+
+    criarIndicadoresInferioresEsquerdo() {
+
+        const elemento = createDomNode('indicadores-botao-esquerdo');
+        const textos = addDomNode(elemento, { className: 'textos'});
+
+        this.DOM.nivelJogo = addDomNode(textos, { className: 'nivel'});
+        addDomNode(this.DOM.nivelJogo, {
+
+            className: 'label',
+            tag: 'span',
+            text: 'Nivel: '
+        });
+
+        this.DOM.nivel = addDomNode(this.DOM.nivelJogo, {
+
+            className: 'valor',
+            tag: 'span',
+            text: '0'
+        });
+
+        this.DOM.pontuacaoJogo = addDomNode(textos, { className: 'pontuacoes'});
+        addDomNode(this.DOM.pontuacaoJogo, {
+
+            className: 'label',
+            tag: 'span',
+            text: 'Pontuacao: '
+        });
+
+        this.DOM.pontuacao = addDomNode(this.DOM.pontuacaoJogo, {
+
+            className: 'valor',
+            tag: 'span'
+        });
+
+        this.DOM.vidaJogo = addDomNode(elemento, { className: 'vida'});
+        this.DOM.progresso = addDomNode(this.DOM.vidaJogo, {
+
+            className: 'progresso'
+        });
+
+        this.DOM.vida = addDomNode(this.DOM.progresso, {
+
+            className: 'valor',
+            tag: 'span'
+        });
+
+        this.DOM.vidaTexto = addDomNode(this.DOM.vidaJogo, {
+
+            className: 'texto',
+            tag: 'span'
+        });
+
+        root.appendChild(elemento);
+    }
+
     criarMenu() {
 
         const elemento = createDomNode('modal game-menu');
@@ -71,7 +163,7 @@ export class JogoUI {
 
             className: 'subtitulo',
             tag: 'h2',
-            text: 'Pressione ENTER para iniciar'
+            text: 'Pressione ENTER para Jogar'
         });
 
         root.appendChild(elemento);
@@ -80,6 +172,56 @@ export class JogoUI {
     exibirMenu() {
 
         this.DOM.menu.classList.remove('hidden');
+    }
+
+    criarFimJogo() {
+
+        const elemento = createDomNode('modal fim-jogo');
+
+        elemento.classList.add('hidden');
+        this.DOM.fimJogo = elemento;
+
+        const conteudo = addDomNode(elemento, { className: 'conteudo'});
+
+        this.FIMJOGO_TITULO = addDomNode(conteudo, {
+
+            className: 'titulo',
+            tag: 'h1',
+            text: 'Fim de Jogo'
+        });
+
+        addDomNode(conteudo, {
+
+            className: 'subtitulo',
+            tag: 'h2',
+            text: 'Pressione ENTER para começar de novo'
+        });
+
+        this.DOM.FIMJOGO_PONTUACAO = addDomNode(conteudo, {
+
+            className: 'pontuacao',
+            tag: 'p',
+            text: 'Sua pontuação: 0'
+        });
+
+        this.DOM.FIMJOGO_MELHOR = addDomNode(conteudo, {
+
+            className: 'pontuação melhor',
+            tag: 'p',
+            text: 'Melhor Pontuação: 0'
+        });
+
+        this.DOM.FIMJOGO_MELHOR_REINICIAR = addDomNode(addDomNode(conteudo, {
+
+            tag: 'div',
+        }), {
+
+            className: 'reiniciar',
+            tab: 'button',
+            text: 'Comece de novo'
+        })
+
+        root.appendChild(elemento);
     }
 
     ocultarModais() {
