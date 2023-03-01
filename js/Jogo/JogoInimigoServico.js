@@ -49,4 +49,9 @@ export class JogoInimigoServico {
 
         this.inimigos.forEach(inimigo => inimigo.draw());
     }
+
+    telaCruzada() {
+
+        
+    }
 }

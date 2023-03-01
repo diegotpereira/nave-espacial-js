@@ -1,6 +1,7 @@
 import { addDomNode, createDomNode, lerp, objetoDeEstiloParaTextoCss, rand } from "./Utils.js";
 
 import mouse from "./Mouse.js";
+import { Trovao } from "./Trovao.js";
 
 export default class Combatente {
 
@@ -115,5 +116,13 @@ export default class Combatente {
         }
 
         elemento.appendChild(fragmento);
+    }
+
+    atirarTrovao() {
+
+        this.trovao = new Trovao(this.jogador, this, () => {
+
+            this.trovao = null;
+        });
     }
 }

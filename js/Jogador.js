@@ -24,7 +24,35 @@ export default class Jogador {
         this.atualizarDom();
     }
 
-    addEventos() {}
+    addEventos() {
+
+        let eventoIniciou;
+
+        if(this.eventoIniciou) return 
+
+        eventoIniciou = true;
+
+        window.addEventListener('click', e => {
+
+            if(this.jogo.fim) return;
+
+            
+        });
+        
+        window.addEventListener('keydown', e => {
+
+            if(this.jogo.fim) return;
+
+        })
+
+        this.jogo.ui.DOM.trovao.addEventListener('click', () => {
+
+            if (this.podeAtirarTrovao) {
+                
+                this.atirarTrovao();
+            }
+        })
+    }
 
     draw() {
 

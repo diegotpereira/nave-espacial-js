@@ -1,4 +1,4 @@
-import { lerp } from "./Utils";
+import { lerp } from "./Utils.js";
 
 export class Trovao {
 
