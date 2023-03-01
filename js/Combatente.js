@@ -2,6 +2,7 @@ import { addDomNode, createDomNode, lerp, objetoDeEstiloParaTextoCss, rand } fro
 
 import mouse from "./Mouse.js";
 import { Trovao } from "./Trovao.js";
+import { Bala } from "./Bala.js";
 
 export default class Combatente {
 
@@ -107,8 +108,13 @@ export default class Combatente {
 
                 width: `${Math.round(tamanho)} px`,
                 height: `${Math.round(tamanho)} px`,
-                left: `${restante} %`
+                left: `${restante}%`,
+                'animation-duration' : `${Math.floor(rand(200, 1000))}ms`,
+                'animation-delay' : `${Math.floor(rand() * (index % 5)) * 1000}ms`,
+                'background-color' : `hsla(${Math.floor(tom)}, 100%, 55%, ${opacidade}%)` 
             }
+
+            
             
             span.style.cssText = objetoDeEstiloParaTextoCss(estilo);
 
@@ -124,5 +130,41 @@ export default class Combatente {
 
             this.trovao = null;
         });
+    }
+
+    atirarBala() {
+
+        const balaY = this.y.ant + 27;
+        const distanciaDoCentro = 29;
+        const opcoes = {};
+
+        const args = {
+
+            jogador: this.jogador,
+            ctx: this.jogo.ui.ctx,
+            y: balaY,
+
+            aoDestruir: bala => {
+
+                this.balas = this.balas.filter(b => b !== bala)
+            }
+        }
+
+        const b1 = new Bala({
+
+            ...args,
+            x: this.x.ant + distanciaDoCentro,
+            dx: -1
+        });
+
+        const b2 = new Bala({
+
+            ...args,
+            x: this.x.ant - distanciaDoCentro,
+            dx: 1
+        });
+
+        this.balas.push(b1);
+        this.balas.push(b2);
     }
 }

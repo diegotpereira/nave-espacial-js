@@ -10,6 +10,7 @@ export default class Jogador {
 
     start() {
 
+        this.reset();
         this.atualizarDom();
         this.addEventos();
 
@@ -28,6 +29,7 @@ export default class Jogador {
 
     reset() {
 
+
         this.nivel = 1;
     }
 
@@ -37,11 +39,16 @@ export default class Jogador {
 
         if(this.eventoIniciou) return 
 
-        eventoIniciou = true;
+        this.eventoIniciou = true;
 
         window.addEventListener('click', e => {
 
             if(this.jogo.fim) return;
+
+            if (this.podeAtirarBala()) {
+                
+                this.atirarBala();
+            }
 
             
         });
@@ -50,11 +57,21 @@ export default class Jogador {
 
             if(this.jogo.fim) return;
 
+            if (e.keyCode === 32 && this.podeAtirarBala()) {
+                
+                this.atirarBala();
+            }
+
+            if (e.key.toLowerCase() === 'enter' && this.podeAtirarTrovao()) {
+                
+                this.atirarTrovao();
+            }
+
         })
 
         this.jogo.ui.DOM.trovao.addEventListener('click', () => {
 
-            if (this.podeAtirarTrovao) {
+            if (this.podeAtirarTrovao()) {
                 
                 this.atirarTrovao();
             }
@@ -66,11 +83,39 @@ export default class Jogador {
         this.combatente.draw();
     }
 
+    atirarBala() {
+
+        this.combatente.atirarBala();
+
+        this.atualizarDom();
+    }
+
+    atirarTrovao() {
+
+        this.combatente.atirarTrovao();
+
+        this.atualizarDom();
+    }
 
     atualizarDom() {
 
         const ui = this.jogo.ui.DOM;
 
         ui.nivel.innerText = this.nivel;
+    }
+
+    podeAtirarBala() {
+        
+        if(!this.jogo.jogando) return false;
+
+
+    }
+
+    podeAtirarTrovao() {
+
+        if(!this.jogo.jogando) return false;
+        if(this.combatente.trovao) return false;
+
+        return true;
     }
 }
