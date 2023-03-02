@@ -2,7 +2,7 @@ import { lerp } from "./Utils.js";
 
 export class Trovao {
 
-    constructor(jogador, combatente) {
+    constructor(jogador, combatente, aoDestruir) {
 
         this.jogador = jogador;
         this.combatente = combatente;
@@ -28,11 +28,21 @@ export class Trovao {
         root.appendChild(this.DOM.elemento);
 
         this.draw();
+        this.aoDestruir = aoDestruir;
+
+        this.encontreCronometroInimigos = setInterval(() => {
+           
+            this.encontrarInimigos();
+        }, 50);
 
         this.encontreCronometroInimigos = setInterval(() => {
             
             this.encontrarInimigos();
         }, 50);
+
+        setTimeout(() => {
+           this.desaparecer(); 
+        }, this.ttl);
     }
 
     encontrarInimigos() {
@@ -47,6 +57,7 @@ export class Trovao {
             if (Math.abs(inimigo.x + inimigo.width / 2 - this.combatente.x.ant) < 10) {
 
                 inimigo.destruir();
+                this.jogador.adcionarPontuacao(true);
                 
                 break;
             }
@@ -68,5 +79,26 @@ export class Trovao {
         }
 
         this.DOM.elemento.style.cssText = `Top: ${this.top}px; height: ${this.height}px; left: ${this.combatente.x.ant}px`;
+    }
+
+    desaparecer() {
+
+        if(!this.active)  return;
+
+        this.active = false;
+        this.DOM.elemento.classList.add('partindo');
+
+        setTimeout(() => {
+           
+            clearInterval(this.encontreCronometroInimigos);
+
+            this.DOM.elemento.classList.remove('partindo');
+            this.DOM.elemento.classList.add('vivendo')
+
+            setTimeout(() => {
+                this.aoDestruir(this);
+                this.DOM.elemento.remove(); 
+            }, 400);
+        }, 600);
     }
 }

@@ -83,7 +83,9 @@ export class Bala {
                     this.active = false;
                     this.destruir();
 
-                    let morto = inimigo.hit();
+                    let morto = inimigo.bater();
+                    this.jogador.adcionarPontuacao(morto);
+                    
                     
                     break;
             }

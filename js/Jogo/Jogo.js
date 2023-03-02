@@ -143,7 +143,16 @@ export default class Jogo {
 
         cancelAnimationFrame(this.animation);
         this.state = PAUSADO;
+        this.inimigo.stop();
         this.ui.exibirMenu();
+    }
+
+    fimJogo() {
+
+        cancelAnimationFrame(this.animation);
+        this.state = FINAL_JOGO;
+        this.inimigo.stop();
+        this.inimigo.removeAll();
     }
 
     draw() {

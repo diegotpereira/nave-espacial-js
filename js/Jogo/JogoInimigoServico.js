@@ -56,8 +56,20 @@ export class JogoInimigoServico {
         this.inimigos.forEach(inimigo => inimigo.draw());
     }
 
-    telaCruzada() {
+    remove(inimigo) {
 
+        this.inimigos = this.inimigos.filter(e => e != inimigo);
+    }
+
+    removeAll() {
+
+        this.inimigos.forEach(inimigo => inimigo.destruir());
+    }
+
+    telaCruzada(inimigo) {
+
+        this.jogador.decrementarVida();
+        this.remove(inimigo);
         
     }
 }

@@ -30,13 +30,14 @@ export default class Jogador {
 
     reset() {
 
-        this.capacidadeBala = config.capacidadeBala;
+        this.capacidadeBala = config.capacidadeDeBala;
         this.balasRestantes = this.capacidadeBala;
 
         this.ultimaTiroBala = 0;
 
         this.recarregando = false;
 
+        this.pontuacao = 0;
 
         this.nivel = 1;
         this.vida = 100;
@@ -87,9 +88,47 @@ export default class Jogador {
         })
     }
 
+    adcionarPontuacao(morto) {
+
+        this.pontuacao += morto ? 20 : 5;
+
+        const melhor = Number(localStorage.getItem(config.MELHOR_PONTUACAO) || 0);
+
+        if (this.pontuacao > melhor) {
+            
+            localStorage.setItem(config.MELHOR_PONTUACAO, this.pontuacao);
+        }
+
+        if (this.pontuacao >= this.nivel * 100) {
+            
+            this.vida += 15;
+
+            if(this.vida > 100) this.vida = 100;
+
+            this.nivel++;
+            this.capacidadeBala = Math.floor(8 + this.nivel / 2);
+            this.balasRestantes = this.capacidadeBala;
+        }
+
+        this.atualizarDom();
+    }
+
     draw() {
 
         this.combatente.draw();
+    }
+
+    decrementarVida(alta) {
+
+        this.vida -= alta ? 30 : 10;
+
+        if (this.vida <= 0) {
+            
+            this.vida = 0;
+            this.jogo.fimJogo();
+        }
+
+        this.atualizarDom();
     }
 
     podeCarregar() {
@@ -155,12 +194,12 @@ export default class Jogador {
 
         ui.trovao.classList.toggle('active', this.podeAtirarTrovao());
 
-        ui.pontuacao.innetText = this.pontuacao;
+        ui.pontuacao.innerText = this.pontuacao;
         
         ui.nivel.innerText = this.nivel;
 
         ui.vida.style.width = `${this.vida}%`;
-        // ui.vidaText.innerText = `${Math.floor(this.vida)}%`;
+        ui.vidaTexto.innerText = `${Math.floor(this.vida)}%`;
     }
 
     podeAtirarBala() {

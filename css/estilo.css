@@ -277,6 +277,39 @@ body {
     transition: 0.3s transform;
     transform-origin: bottom;
 }
+
+.trovao.partindo {
+
+    animation: trovao 0.3s infinite;
+}
+
+.trovao.vivendo {
+
+    opacity: 1;
+    transform: scale(1, 0) translate(-50%, 0);
+}
+
+@keyframes trovao {
+
+    0% {
+        opacity: 1;
+    }
+
+    30% {
+    opacity: 0;
+    }
+
+    40% {
+    opacity: 1;
+    }
+    60% {
+    opacity: 0;
+    }
+
+    70% {
+    opacity: 1;
+    }
+}
 .indicadores-botao-direito {
     position: fixed;
     right: 2rem;
@@ -396,6 +429,28 @@ body {
     font-size: 36px;
 }
 
+.inimigo.danificado {
+
+    transform: scale(0.9);
+    opacity: 0.7;
+}
+
+.inimigo.destruir {
+    animation: destruirInimigo 0.5s forwards;
+}
+
+@keyframes destruirInimigo {
+
+    0% {
+        transform: scale(0.9);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(0);
+      }
+}
 .modal {
     position: fixed;
     top: 0;

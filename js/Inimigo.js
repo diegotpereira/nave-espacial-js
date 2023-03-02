@@ -8,7 +8,7 @@ export default class Inimigo {
     constructor({ jogo, velocidade, inimigoServico }) {
 
         this.jogo = jogo;
-        this.inimigoServico = inimigoServico;
+        this.servico = inimigoServico;
         this.active = true; 
 
         this.vida = 100;
@@ -28,6 +28,7 @@ export default class Inimigo {
 
         if (this.y > innerHeight) {
             
+            this.servico.telaCruzada(this);
             this.DOM.elemento.remove();
 
             return
@@ -41,15 +42,40 @@ export default class Inimigo {
             combatenteX < this.x + this.width && 
             this.y + this.height > combatenteY && 
             this.y < combatenteY + combatente.limites.height) {
-            
-                
 
+                this.jogo.jogador.decrementarVida();
+
+                this.destruir();
                 return;
         }
 
         this.y += this.dy;
         this.DOM.elemento.style.top = `${this.y}px`;
     }
+
+    bater() {
+
+        this.vida -= 50;
+        this.DOM.elemento.classList.add('danificado');
+
+        if(this.vida <= 0) {
+
+            this.destruir();
+
+            return true;
+        }
+    }
     
-    destroir() {}
+    destruir() {
+
+        this.active = false;
+        this.DOM.elemento.classList.add('destruir');
+        this.jogo.inimigo.remove(this);
+        this.dy = 0;
+
+        setTimeout(() => {
+            
+            this.DOM.elemento.remove();
+        }, 500);
+    }
 }
