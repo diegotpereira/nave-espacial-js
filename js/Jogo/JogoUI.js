@@ -66,7 +66,7 @@ export class JogoUI {
             className: 'contador-balas'
         });
 
-        this.DOM.balasEsquerda = addDomNode(this.DOM.balasContar, {
+        this.DOM.balasRestantes = addDomNode(this.DOM.balasContar, {
 
             className: 'icon'
         });

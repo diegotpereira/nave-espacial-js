@@ -50,4 +50,6 @@ export default class Inimigo {
         this.y += this.dy;
         this.DOM.elemento.style.top = `${this.y}px`;
     }
+    
+    destroir() {}
 }

@@ -45,6 +45,8 @@ export class Trovao {
             const inimigo = inimigos[index];
 
             if (Math.abs(inimigo.x + inimigo.width / 2 - this.combatente.x.ant) < 10) {
+
+                inimigo.destruir();
                 
                 break;
             }

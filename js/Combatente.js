@@ -8,7 +8,7 @@ export default class Combatente {
 
     constructor() {
 
-        this.Dom = {};
+        this.DOM = {};
         this.criarElemento();
         this.createFireDom();
 
@@ -26,7 +26,7 @@ export default class Combatente {
             prev: innerHeight - 200,
         }
 
-        root.appendChild(this.Dom.elemento);
+        root.appendChild(this.DOM.elemento);
 
         this.limites = {
 
@@ -58,14 +58,20 @@ export default class Combatente {
 
         elemento.appendChild(template);
 
-        this.Dom.elemento = elemento;
+        this.DOM.elemento = elemento;
     }
 
     
 
     draw() {
 
+        this.balas.forEach(b => b.atualizar());
         this.balas.forEach(b => b.draw());
+
+        if (this.trovao) {
+            
+            this.trovao.draw();
+        }
 
         if (mouse.x !== undefined) {
             
@@ -81,7 +87,7 @@ export default class Combatente {
 
         }
 
-        this.Dom.elemento.style.cssText = objetoDeEstiloParaTextoCss({
+        this.DOM.elemento.style.cssText = objetoDeEstiloParaTextoCss({
 
             top: this.y.ant + 'px',
             left: this.x.ant - this.limites.width / 2 + 'px',
@@ -90,7 +96,7 @@ export default class Combatente {
 
     createFireDom() {
 
-        const elemento = this.Dom.elemento.querySelector('.fire');
+        const elemento = this.DOM.elemento.querySelector('.fire');
         const contar = 4;
 
 

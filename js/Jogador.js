@@ -1,10 +1,11 @@
+import config from "./Config.js";
+
 export default class Jogador {
 
     constructor({ combatente }) {
 
         this.combatente = combatente;
         this.reset();
-
 
     }
 
@@ -29,8 +30,16 @@ export default class Jogador {
 
     reset() {
 
+        this.capacidadeBala = config.capacidadeBala;
+        this.balasRestantes = this.capacidadeBala;
+
+        this.ultimaTiroBala = 0;
+
+        this.recarregando = false;
+
 
         this.nivel = 1;
+        this.vida = 100;
     }
 
     addEventos() {
@@ -83,16 +92,47 @@ export default class Jogador {
         this.combatente.draw();
     }
 
+    podeCarregar() {
+
+        return !this.recarregando && this.balasRestantes < this.capacidadeBala;
+    }
+
+    recarregar() {
+
+        this.recarregando = true;
+        this.balasRestantes = this.capacidadeBala;
+        this.atualizarDom();
+
+        setTimeout(() => {
+           
+            this.recarregando = false;
+            this.atualizarDom();
+
+        }, config.recarregarTempo);
+    }
+
     atirarBala() {
+
+        this.balasRestantes--;
 
         this.combatente.atirarBala();
 
+        this.ultimaTiroBala = Date.now();
+
         this.atualizarDom();
+
+        if (this.balasRestantes <= 0 && this.podeCarregar()) {
+            
+            this.recarregar();
+        }
     }
 
     atirarTrovao() {
 
+
         this.combatente.atirarTrovao();
+
+        this.ultimaTiroBala = Date.now();
 
         this.atualizarDom();
     }
@@ -101,14 +141,49 @@ export default class Jogador {
 
         const ui = this.jogo.ui.DOM;
 
+        if(this.recarregando) {
+
+            ui.balasRestantes.innerHTML = '<small>Recarregando</small>';
+
+        } else {
+
+            ui.balasRestantes.innerText = this.balasRestantes;
+        }
+
+
+        // ui.capacidadeBala.innerText = '∞';
+
+        ui.trovao.classList.toggle('active', this.podeAtirarTrovao());
+
+        ui.pontuacao.innetText = this.pontuacao;
+        
         ui.nivel.innerText = this.nivel;
+
+        ui.vida.style.width = `${this.vida}%`;
+        // ui.vidaText.innerText = `${Math.floor(this.vida)}%`;
     }
 
     podeAtirarBala() {
         
         if(!this.jogo.jogando) return false;
+        
+        if (this.balasRestantes <= 0 || this.recarregando) {
+            
+            return false;
+        }
 
+        let intervaloTempoTiro;
 
+        if (this.combatente.trovao) {
+            
+            intervaloTempoTiro = 200;
+
+        } else {
+
+            intervaloTempoTiro = 200 - Math.min(this.nivel, 20) * 8;
+        }
+
+        return Date.now() - this.ultimaTiroBala > intervaloTempoTiro;
     }
 
     podeAtirarTrovao() {
