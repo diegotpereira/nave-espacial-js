@@ -1,6 +1,6 @@
 const config = {
 
-    MELHOR_PONTUACAO: 'best-score',
+    MELHOR_PONTUACAO: 'melhor-pontuacao',
     recarregarTempo: 700,
     capacidadeDeBala: 8
 }

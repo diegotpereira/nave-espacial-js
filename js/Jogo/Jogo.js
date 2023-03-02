@@ -1,3 +1,4 @@
+import config from "../Config.js";
 import { JogoInimigoServico } from "./JogoInimigoServico.js";
 import {JogoUI}  from "./JogoUI.js";
 
@@ -153,6 +154,20 @@ export default class Jogo {
         this.state = FINAL_JOGO;
         this.inimigo.stop();
         this.inimigo.removeAll();
+
+        this.ui.exibirFimDeJogo({ 
+            pontuacao: this.jogador.pontuacao,
+            nivel: this.jogador.nivel,
+            eh_novo_recorde: this.jogador.melhor < this.jogador.pontuacao,
+            melhor: localStorage.getItem(config.MELHOR_PONTUACAO) || 0,
+        });
+
+        this.jogador.balas.forEach(bala => bala.destruir());
+
+        if (this.jogador.combatente.trovao) {
+            
+            this.jogador.combatente.trovao.desaparecer();
+        }
     }
 
     draw() {

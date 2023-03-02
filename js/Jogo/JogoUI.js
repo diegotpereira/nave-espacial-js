@@ -211,6 +211,16 @@ export class JogoUI {
             text: 'Melhor Pontuação: 0'
         });
 
+        this.DOM.GAMEOVER_SHARE_TWITTER = addDomNode(content, {
+
+            tag: 'div',
+        }), {
+
+            className: 'compartilhar-twitter',
+            tag: 'a',
+            text: 'Tweet agora',
+        }
+
         this.DOM.FIMJOGO_MELHOR_REINICIAR = addDomNode(addDomNode(content, {
 
             tag: 'div',
@@ -221,7 +231,32 @@ export class JogoUI {
             text: 'Comece de novo'
         })
 
+        this.DOM.GAMEOVER_SHARE_TWITTER.target = '_blank';
+
         root.appendChild(elemento);
+    }
+
+    exibirFimDeJogo({nivel, pontuacao, melhor, eh_novo_recorde}) {
+
+        this.DOM.FIMJOGO_TITULO.textContent = eh_novo_recorde
+
+        ? 'Novo Recorde'
+        :   'Fim de Jogo'
+
+        this.DOM.FIMJOGO_PONTUACAO.textContent = `Sua pontuação: ${pontuacao}`;
+        this.DOM.FIMJOGO_MELHOR.textContent = `Sua melhor: ${melhor}`;
+
+        this.DOM.FIMJOGO_COMPARTILHAR_TWITTER = 
+
+        'https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(
+            `Spacecraft ${nivel}/${pontuacao}${
+            is_new_record ? '\r\nNew Record!' : ''
+            }\r\nhttps://spacecraft.vercel.app/`,
+        )
+
+        this.DOM.fimJogo.classList.toggle('success', eh_novo_recorde);
+        this.DOM.fimJogo.classList.remove('hidden');
     }
 
     ocultarModais() {
