@@ -1,3 +1,4 @@
+import config from "../Config.js";
 import Estrela from "../Estrela.js";
 import { createDomNode, addDomNode } from "../Utils.js";
 
@@ -6,6 +7,7 @@ export class JogoUI {
     constructor(jogo) {
 
         this.DOM = {};
+        
         this.DOM.canvas = document.querySelector('canvas');
         this.ctx = this.DOM.canvas.getContext('2d', {
 
@@ -175,6 +177,7 @@ export class JogoUI {
     }
 
     criarFimJogo() {
+        this.eh_novo_recorde = config.eh_novo_recorde;
 
         const elemento = createDomNode('modal fim-jogo');
 
@@ -236,26 +239,26 @@ export class JogoUI {
         root.appendChild(elemento);
     }
 
-    exibirFimDeJogo({nivel, pontuacao, melhor, eh_novo_recorde}) {
+    exibirFimDeJogo({nivel, pontuacao, melhor}) {
 
-        this.DOM.FIMJOGO_TITULO.textContent = eh_novo_recorde
+        // this.DOM.FIMJOGO_TITULO.textContent = eh_novo_recorde
 
-        ? 'Novo Recorde'
-        :   'Fim de Jogo'
+        // ? 'Novo Recorde'
+        // : 'Fim de Jogo' 
 
-        this.DOM.FIMJOGO_PONTUACAO.textContent = `Sua pontuação: ${pontuacao}`;
-        this.DOM.FIMJOGO_MELHOR.textContent = `Sua melhor: ${melhor}`;
+        this.DOM.FIMJOGO_PONTUACAO.textContent = `Sua pontuação: ${pontuacao}`
+        this.DOM.FIMJOGO_MELHOR.textContent = `Sua melhor: ${melhor}`
 
-        this.DOM.FIMJOGO_COMPARTILHAR_TWITTER = 
+        // this.DOM.FIMJOGO_COMPARTILHAR_TWITTER = 
 
-        'https://twitter.com/intent/tweet?text=' +
-        encodeURIComponent(
-            `Spacecraft ${nivel}/${pontuacao}${
-            is_new_record ? '\r\nNew Record!' : ''
-            }\r\nhttps://spacecraft.vercel.app/`,
-        )
+        // 'https://twitter.com/intent/tweet?text=' +
+        // encodeURIComponent(
+        //     `Spacecraft ${nivel}/${pontuacao}${
+        //     is_new_record ? '\r\nNovo Recorde!' : ''
+        //     }\r\nhttps://spacecraft.vercel.app/`,
+        // )
 
-        this.DOM.fimJogo.classList.toggle('success', eh_novo_recorde);
+        // this.DOM.fimJogo.classList.toggle('success', eh_novo_recorde);
         this.DOM.fimJogo.classList.remove('hidden');
     }
 

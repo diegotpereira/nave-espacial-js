@@ -7,6 +7,8 @@ const PAUSADO = 'pausado';
 const FINAL_JOGO = 'final_jogo';
 const JOGANDO = 'rodando';
 
+
+
 export default class Jogo {
 
     constructor({ jogador }) {
@@ -20,6 +22,7 @@ export default class Jogo {
             jogador
         });
 
+    
         this.iniciarJogador(jogador);
         this.addEventos();
         this.animate();
@@ -158,11 +161,11 @@ export default class Jogo {
         this.ui.exibirFimDeJogo({ 
             pontuacao: this.jogador.pontuacao,
             nivel: this.jogador.nivel,
-            eh_novo_recorde: this.jogador.melhor < this.jogador.pontuacao,
+            // eh_novo_recorde: this.jogador.melhor < this.jogador.pontuacao,
             melhor: localStorage.getItem(config.MELHOR_PONTUACAO) || 0,
         });
 
-        this.jogador.balas.forEach(bala => bala.destruir());
+        this.jogador.combatente.balas.forEach(bala => bala.destruir());
 
         if (this.jogador.combatente.trovao) {
             

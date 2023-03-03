@@ -41,6 +41,7 @@ export default class Jogador {
 
         this.nivel = 1;
         this.vida = 100;
+        
     }
 
     addEventos() {
